@@ -1,0 +1,8 @@
+Executive Summary
+Assignment Overview
+The assignment involves extending project2 of the implementation of a server and client class using RMI to communicate information for a key-value store. In this project, there must be replication of the server so that clients can access different servers to be able to modify the key value store. Additionally, the two phase commit protocol must be implemented so as to maintain consistency of the key value store values between all the server replicas. I believe the purpose of this assignment was to gain practice with handling having multiple servers have consistent key value stores so that a client can access any server and get the same response. This assignment also requires testing of the servers where utilizing clusters can help. In my application, I utilized docker-compose to be able to test the multiple client and server instances.
+
+
+
+Technical Impression
+My experience with this assignment is that I have been able to implement the two phase commit protocol to be able to allow my multiple server instances to confirm if a commit can be executed. There can be improvements made to the application with more testing. There is not currently a timeout implemented and when it comes to preparation, there are currently no checks for example for the participants to check if there are resources available. The docker compose file was able to be created to successfully create multiple instances of servers and clients to test overall application.

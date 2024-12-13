@@ -1,0 +1,121 @@
+name: keyValServerProject3
+
+services:  # replicate Key-Value Store server across 5 distinct servers, port numbers have been assigned to each.
+  server1:
+    image: proj2-server-image
+    build:
+      context: .
+      target: server-build
+    networks:
+      - proj2-network
+    ports:
+      - "32001:32001"
+    command: ["java", "Server", "32001"]  # Overrides port number specified in the command in the Dockerfile 
+
+  server2:
+    image: proj2-server-image
+    build:
+      context: .
+      target: server-build
+    networks:
+      - proj2-network
+    ports:
+      - "32002:32002"
+    command: ["java", "Server", "32002"]
+
+  server3:
+    image: proj2-server-image
+    build:
+      context: .
+      target: server-build
+    networks:
+      - proj2-network
+    ports:
+      - "32003:32003"
+    command: ["java", "Server", "32003"]
+
+  server4:
+    image: proj2-server-image
+    build:
+      context: .
+      target: server-build
+    networks:
+      - proj2-network
+    ports:
+      - "32004:32004"
+    command: ["java", "Server", "32004"]
+
+  server5:
+    image: proj2-server-image
+    build:
+      context: .
+      target: server-build
+    networks:
+      - proj2-network
+    ports:
+      - "32005:32005"
+    command: ["java", "Server", "32005"]
+
+  client1:  # replicates 5 clients, each client interacts with a server. Client can be connected to a different server by changing the command, as well as the dependency
+    build:
+      context: .
+      target: client-build
+    networks:
+      - proj2-network
+    depends_on:
+      - server1
+    command: ["java", "Client", "server1", "32001"]  # Overrides the command in the Dockerfile
+
+  client2:
+    build:
+      context: .
+      target: client-build
+    networks:
+      - proj2-network
+    depends_on:
+      - server2
+    command: ["java", "Client", "server2", "32002"]
+
+  client3:
+    build:
+      context: .
+      target: client-build
+    networks:
+      - proj2-network
+    depends_on:
+      - server3
+    command: ["java", "Client", "server3", "32003"]
+
+  client4:
+    build:
+      context: .
+      target: client-build
+    networks:
+      - proj2-network
+    depends_on:
+      - server4
+    command: ["java", "Client", "server4", "32004"]
+
+  client5:
+    build:
+      context: .
+      target: client-build
+    networks:
+      - proj2-network
+    depends_on:
+      - server5
+    command: ["java", "Client", "server5", "32005"]
+    
+  client6:
+    build:
+      context: .
+      target: client-build
+    networks:
+      - proj2-network
+    depends_on:
+      - server5
+    command: ["java", "Client", "server5", "32005"]
+
+networks:
+  proj2-network:
+    driver: bridge  # default, enables containers on the same Docker host to communicate with each other
